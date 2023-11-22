@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Função para inicializar um personagem
 Personagem* inicializaPersonagem(const char* nome, int vida, int ataque, int defesa) {
     Personagem* novoPersonagem = (Personagem*)malloc(sizeof(Personagem));
     strcpy(novoPersonagem->nome, nome);
@@ -14,7 +13,6 @@ Personagem* inicializaPersonagem(const char* nome, int vida, int ataque, int def
     return novoPersonagem;
 }
 
-// Função para realizar um ataque entre dois personagens com um fator aleatório
 void atacar(Personagem* atacante, Personagem* defensor) {
     // Gerar um fator aleatório entre 0.8 e 1.2
     double fatorAleatorio = 0.8 + (rand() / (double)RAND_MAX) * 0.4;
@@ -29,7 +27,6 @@ void atacar(Personagem* atacante, Personagem* defensor) {
     }
 }
 
-// Função para realizar uma ação de defesa com um fator aleatório
 void defender(Personagem* defensor) {
     // Gerar um fator aleatório entre 0.5 e 1.0
     double fatorAleatorio = 0.5 + (rand() / (double)RAND_MAX) * 0.5;
