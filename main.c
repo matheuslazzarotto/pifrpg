@@ -4,6 +4,11 @@
 #include <stdlib.h>
 #include <time.h>
 
+typedef struct {
+    char nome[50];
+    int pontuacao;
+} Score;
+
 void printStartScreen() {
     printf("*******************************************\n");
     printf("*          BEM-VINDO AO RPGPIF            *\n");
@@ -31,7 +36,7 @@ void printEnemyEncounter() {
 
 int main() {
     srand(time(NULL));
-
+    Score* leaderboard = NULL;
     printStartScreen();
     
     Personagem* heroi = inicializaPersonagem("Herói", 100, 20, 10);
@@ -64,6 +69,12 @@ int main() {
             printf("%s derrotou %s!\n", heroi->nome, vilao->nome);
             printf("\nVocê derrotou o vilão e emergiu vitorioso do Labirinto das Sombras!\n");
             printf("Seu nome ecoará nas lendas, e sua coragem será contada por gerações.\n");
+            Score playerScore;
+            strcpy(playerScore.nome, heroi->nome);
+            playerScore.pontuacao = heroi->vida;
+            addToLeaderboard(&leaderboard, playerScore);
+            printf("\n************ LEADERBOARD ************\n");
+            displayLeaderboard(leaderboard);
             break;
         }
 
@@ -80,6 +91,47 @@ int main() {
     // Liberar a memória alocada para os personagens
     free(heroi);
     free(vilao);
-
+    freeLeaderboard(leaderboard);
     return 0;
+}
+
+void addToLeaderboard(Score** leaderboard, Score newScore) {
+    Score* newNode = (Score*)malloc(sizeof(Score));
+    strcpy(newNode->nome, newScore.nome);
+    newNode->pontuacao = newScore.pontuacao;
+    newNode->next = NULL;
+
+    if (*leaderboard == NULL) {
+        *leaderboard = newNode;
+    } else {
+        Score* current = *leaderboard;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = newNode;
+    }
+}
+
+// Function to display the leaderboard
+void displayLeaderboard(Score* leaderboard) {
+    Score* current = leaderboard;
+    int position = 1;
+
+    while (current != NULL) {
+        printf("%d. %s - Pontuação: %d\n", position, current->nome, current->pontuacao);
+        current = current->next;
+        position++;
+    }
+}
+
+// Function to free the memory allocated for the leaderboard
+void freeLeaderboard(Score* leaderboard) {
+    Score* current = leaderboard;
+    Score* next;
+
+    while (current != NULL) {
+        next = current->next;
+        free(current);
+        current = next;
+    }
 }
