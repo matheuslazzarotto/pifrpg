@@ -12,6 +12,8 @@ int main() {
 
     while (heroi->vida > 0 && vilao->vida > 0) {
         int escolha;
+
+        printf("\n%s (HP: %d) vs %s (HP: %d)\n", heroi->nome, heroi->vida, vilao->nome, vilao->vida);
         
         printf("Escolha uma ação:\n");
         printf("1. Atacar\n");
