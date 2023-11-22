@@ -63,7 +63,7 @@ int main() {
             if (escolha == 1) {
                 atacar(heroi, vilao);
             } else if (escolha == 2) {
-                defender(heroi);
+                defender(heroi, vilao);
             } else {
                 printf("Escolha inválida. Tente novamente.\n");
                 continue;
