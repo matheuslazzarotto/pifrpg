@@ -41,4 +41,3 @@ void defender(Personagem* defensor, Personagem* atacante) {
         atacar(defensor, atacante);
     }
 }
-
