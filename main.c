@@ -14,6 +14,7 @@ void printStartScreen() {
     printf("*  começa agora!                          *\n");
     printf("*                                         *\n");
     printf("*******************************************\n");
+}
 
 void printBarbarianIntro() {
     printf("\nCom seu machado em mãos e vestindo uma armadura de couro robusta,\n");
