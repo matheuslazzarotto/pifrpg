@@ -1,4 +1,4 @@
-# gitrpg
+# PIFRPG
 
 Jogo para avaliação da Cadeira de Programação Imperativa e Funcional, com o intuito de preencher os seguintes requisitos em C:
 
