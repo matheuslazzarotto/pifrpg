@@ -1,4 +1,5 @@
 // main.c
+#include <stdbool.h>
 #include "rpg.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,6 +38,8 @@ int main() {
     Personagem* heroi = inicializaPersonagem("Herói", 100, 20, 10);
 
     printBarbarianIntro();
+
+    bool survivedAllEncounters = true;  // Flag to check if the hero survived all encounters
 
     for (int encounter = 1; encounter <= 3; ++encounter) {
         printf("\n********** Encontro %d **********\n", encounter);
@@ -77,16 +80,24 @@ int main() {
             if (heroi->vida <= 0) {
                 printf("%s derrotou %s!\n", vilao->nome, heroi->nome);
                 printf("\nInfelizmente, o vilão provou ser forte demais. Seu desafio não acabou, mas o Labirinto das Sombras espera por outros aventureiros.\n");
+
+                survivedAllEncounters = false;  // Set the flag to false if the hero dies
                 break;
             }
         }
 
         // Liberar a memória alocada para o vilão do encontro atual
         free(vilao);
+
+        if (!survivedAllEncounters) {
+            break;  // If the hero dies, exit the loop
+        }
     }
 
-    printf("\nParabéns! Você emergiu vitorioso dos três encontros no Labirinto das Sombras!\n");
-    printf("Seu nome ecoará nas lendas, e sua coragem será contada por gerações.\n");
+    if (survivedAllEncounters) {
+        printf("\nParabéns! Você emergiu vitorioso dos três encontros no Labirinto das Sombras!\n");
+        printf("Seu nome ecoará nas lendas, e sua coragem será contada por gerações.\n");
+    }
 
     // Liberar a memória alocada para o herói
     free(heroi);
