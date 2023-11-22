@@ -5,18 +5,14 @@
 #include <time.h>
 
 int main() {
-    // Seed the random number generator
     srand(time(NULL));
 
-    // Criar dois personagens usando a função da biblioteca
     Personagem* heroi = inicializaPersonagem("Herói", 100, 20, 10);
     Personagem* vilao = inicializaPersonagem("Vilão", 80, 15, 8);
 
-    // Simular combate usando a função da biblioteca
     while (heroi->vida > 0 && vilao->vida > 0) {
         int escolha;
         
-        // Solicitar ao jogador escolher entre ataque (1) e defesa (2)
         printf("Escolha uma ação:\n");
         printf("1. Atacar\n");
         printf("2. Defender\n");
