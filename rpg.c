@@ -27,7 +27,7 @@ void atacar(Personagem* atacante, Personagem* defensor) {
     }
 }
 
-void defender(Personagem* defensor) {
+void defender(Personagem* defensor, Personagem* atacante) {
     // Gerar um fator aleatório entre 0.5 e 1.0
     double fatorAleatorio = 0.5 + (rand() / (double)RAND_MAX) * 0.5;
 
@@ -41,3 +41,4 @@ void defender(Personagem* defensor) {
         atacar(defensor, atacante);
     }
 }
+
