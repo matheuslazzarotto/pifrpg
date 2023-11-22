@@ -34,4 +34,10 @@ void defender(Personagem* defensor) {
     int defesa = (int)(defensor->defesa * fatorAleatorio);
 
     printf("%s se defende, reduzindo o dano em %d!\n", defensor->nome, defesa);
+
+    // Implement counter-attack mechanic
+    if (rand() % 100 < 70) {
+        printf("%s contra-ataca!\n", defensor->nome);
+        atacar(defensor, atacante);
+    }
 }
