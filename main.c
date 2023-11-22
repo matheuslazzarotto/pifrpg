@@ -28,6 +28,7 @@ void printEnemyEncounter() {
     printf("Um goblin emerge das sombras, suas presas à mostra e garras prontas para o ataque.\n");
     printf("Você se prepara para o combate, a adrenalina correndo por suas veias.\n");
 }
+
 int main() {
     srand(time(NULL));
 
@@ -35,6 +36,10 @@ int main() {
     
     Personagem* heroi = inicializaPersonagem("Herói", 100, 20, 10);
     Personagem* vilao = inicializaPersonagem("Vilão", 80, 15, 8);
+
+    printBarbarianIntro();
+
+    printEnemyEncounter();
 
     while (heroi->vida > 0 && vilao->vida > 0) {
         int escolha;
@@ -57,6 +62,8 @@ int main() {
 
         if (vilao->vida <= 0) {
             printf("%s derrotou %s!\n", heroi->nome, vilao->nome);
+            printf("\nVocê derrotou o vilão e emergiu vitorioso do Labirinto das Sombras!\n");
+            printf("Seu nome ecoará nas lendas, e sua coragem será contada por gerações.\n");
             break;
         }
 
@@ -64,6 +71,8 @@ int main() {
 
         if (heroi->vida <= 0) {
             printf("%s derrotou %s!\n", vilao->nome, heroi->nome);
+            printf("\nInfelizmente, o vilão provou ser forte demais. O Labirinto das Sombras reclama mais uma vítima.\n");
+            printf("Seu sacrifício não será esquecido, mas o desafio continua para outros aventureiros.\n");
             break;
         }
     }
