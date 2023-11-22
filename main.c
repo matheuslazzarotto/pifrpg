@@ -35,51 +35,61 @@ int main() {
     printStartScreen();
     
     Personagem* heroi = inicializaPersonagem("Herói", 100, 20, 10);
-    Personagem* vilao = inicializaPersonagem("Vilão", 80, 15, 8);
 
     printBarbarianIntro();
 
-    printEnemyEncounter();
+    for (int encounter = 1; encounter <= 3; ++encounter) {
+        printf("\n********** Encontro %d **********\n", encounter);
 
-    while (heroi->vida > 0 && vilao->vida > 0) {
-        int escolha;
+        Personagem* vilao = inicializaPersonagem("Vilão", 80 + encounter * 10, 15 + encounter * 3, 8 + encounter);
 
-        printf("\n%s (HP: %d) vs %s (HP: %d)\n", heroi->nome, heroi->vida, vilao->nome, vilao->vida);
-        
-        printf("Escolha uma ação:\n");
-        printf("1. Atacar\n");
-        printf("2. Defender\n");
-        scanf("%d", &escolha);
+        printf("\nVocê avança mais fundo no Labirinto das Sombras e encontra um novo desafio!\n");
 
-        if (escolha == 1) {
-            atacar(heroi, vilao);
-        } else if (escolha == 2) {
-            defender(heroi);
-        } else {
-            printf("Escolha inválida. Tente novamente.\n");
-            continue;
+        printEnemyEncounter();
+
+        while (heroi->vida > 0 && vilao->vida > 0) {
+            int escolha;
+
+            printf("\n%s (HP: %d) vs %s (HP: %d)\n", heroi->nome, heroi->vida, vilao->nome, vilao->vida);
+            
+            printf("Escolha uma ação:\n");
+            printf("1. Atacar\n");
+            printf("2. Defender\n");
+            scanf("%d", &escolha);
+
+            if (escolha == 1) {
+                atacar(heroi, vilao);
+            } else if (escolha == 2) {
+                defender(heroi);
+            } else {
+                printf("Escolha inválida. Tente novamente.\n");
+                continue;
+            }
+
+            if (vilao->vida <= 0) {
+                printf("%s derrotou %s!\n", heroi->nome, vilao->nome);
+                printf("\nVocê derrotou o vilão neste encontro!\n");
+                break;
+            }
+
+            atacar(vilao, heroi);
+
+            if (heroi->vida <= 0) {
+                printf("%s derrotou %s!\n", vilao->nome, heroi->nome);
+                printf("\nInfelizmente, o vilão provou ser forte demais. Seu desafio não acabou, mas o Labirinto das Sombras espera por outros aventureiros.\n");
+                break;
+            }
         }
 
-        if (vilao->vida <= 0) {
-            printf("%s derrotou %s!\n", heroi->nome, vilao->nome);
-            printf("\nVocê derrotou o vilão e emergiu vitorioso do Labirinto das Sombras!\n");
-            printf("Seu nome ecoará nas lendas, e sua coragem será contada por gerações.\n");
-            break;
-        }
-
-        atacar(vilao, heroi);
-
-        if (heroi->vida <= 0) {
-            printf("%s derrotou %s!\n", vilao->nome, heroi->nome);
-            printf("\nInfelizmente, o vilão provou ser forte demais. O Labirinto das Sombras reclama mais uma vítima.\n");
-            printf("Seu sacrifício não será esquecido, mas o desafio continua para outros aventureiros.\n");
-            break;
-        }
+        // Liberar a memória alocada para o vilão do encontro atual
+        free(vilao);
     }
 
-    // Liberar a memória alocada para os personagens
+    printf("\nParabéns! Você emergiu vitorioso dos três encontros no Labirinto das Sombras!\n");
+    printf("Seu nome ecoará nas lendas, e sua coragem será contada por gerações.\n");
+
+    // Liberar a memória alocada para o herói
     free(heroi);
-    free(vilao);
 
     return 0;
 }
